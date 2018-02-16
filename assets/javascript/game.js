@@ -1,5 +1,6 @@
 
 $(document).ready(function() {
+  var chosen;
   var characters =
   [Luke = {
     health: 100,
@@ -20,17 +21,32 @@ $(document).ready(function() {
      image:"https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F02%2FEwan-McGregor-as-Obi-Wan-Kenobi.jpg&c=sc&w=850&h=560"
   }];
 
-  for (var i = 0; i < characters.length; i++) {
-    var newDiv = $("<button class='pictures buttonId'><img src="
-    + characters[i].image + " height='100'></img></button>");
-    newDiv.data("data-object", characters[i]);
-    $("#images").append(newDiv);
+  chooseChars();
+
+  function chooseChars() {
+    for (var i = 0; i < characters.length; i++) {
+      if(chosen === characters[i])
+        continue;
+      var newDiv = $("<button class='pictures buttonId'><img src="
+      + characters[i].image + " height='100'></img></button>");
+      newDiv.data("data-object", characters[i]);
+      $("#images").append(newDiv);
+    }
   }
 
-  $(".buttonId").on("click", function () {
+
+  $("#images").on("click","button.buttonId", function () {
     console.log("here");
-    var chosen = $(this).data("data-object");
+    chosen = $(this).data("data-object");
+    $("#images").empty();
+    chooseChars();
     console.log(chosen);
+  });
+
+  $("#reset").on("click", function () {
+    $("#images").empty();
+    chosen = "";
+    chooseChars();
   });
 
 
