@@ -25,37 +25,24 @@ $(document).ready(function() {
   }];
 
   //initial characters array
-  chooseChars();
+  chooseChars("#images");
 
-  function chooseChars() {
+  function chooseChars(string) {
     for (var i = 0; i < characters.length; i++) {
       if(chosen === characters[i])
         continue;
       var newDiv = $("<button class='pictures buttonId'><img src="
       + characters[i].image + " height='100'></img></button>");
       newDiv.data("data-object", characters[i]);
-      $("#images").append(newDiv);
+      $(string).append(newDiv);
     }
-  }
-
-  function chooseEnemy() {
-    for (var i = 0; i < characters.length; i++) {
-      if(chosen === characters[i])
-        continue;
-      var newDiv = $("<button class='pictures buttonId'><img src="
-      + characters[i].image + " height='100'></img></button>");
-      newDiv.data("data-object", characters[i]);
-      $("#opponent").append(newDiv);
-    }
-
   }
 
   //save the chosen character to be used by user
   $("#images").on("click","button.buttonId", function () {
-
     chosen = $(this).data("data-object");
     $("#images").empty();
-    chooseEnemy();
+    chooseChars("#opponent");
     console.log(chosen);
   });
 
@@ -63,8 +50,10 @@ $(document).ready(function() {
   $("#reset").on("click", function () {
     $("#images").empty();
     $("#opponent").empty();
+    console.clear()
     chosen = "";
-    chooseChars();
+    chooseChars("#images");
+
   });
 
 
