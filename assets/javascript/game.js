@@ -50,22 +50,38 @@ $(document).ready(function() {
           continue;
       }
       var newDiv = $("<button class='pictures buttonId'><img src="
-      + characters[i].image + " height='100'></img></button>");
+      + characters[i].image + " height='100'><div>" +
+      characters[i].health + "</div></img></button>");
       newDiv.data("data-object", characters[i]);
       $(string).append(newDiv);
     }
     if(isChosen === true){
-      $("#images").html("<h2>Your Character: </h2>")
-      $("#images").append("<img src="+ chosen.image + " height='100'>");
-      $("#images").append("<button id='attack' class='attackClass'>Attack</button>");
-      isChosen === false;
+      yourChar();
     }
+  }
+
+  function yourChar() {
+    $("#images").html("<h2>Your Character: </h2>")
+    $("#images").append("<button class='pictures'><img src="
+    + chosen.image + " height='100'><div>" +
+    chosen.health + "</div></img></button>");
+    $("#images").append("<button id='attack' class='attackClass'>Attack</button>");
+    isChosen === false;
+  }
+
+  function oppChar() {
+    $("#opponent").html("<h2>Opponent Character: </h2>")
+    $("#opponent").append("<button class='pictures'><img src="
+    + opponentChar.image + " height='100'><div>" +
+    opponentChar.health + "</div></img></button>");
   }
 
   $("#images").on("click","button.attackClass", function () {
     opponentChar.health -= chosen.attack;
     chosen.health -= opponentChar.counter;
     chosen.attack += chosen.attack;
+    yourChar();
+    oppChar();
     console.log("chosen health: " + chosen.health);
     console.log("chosen attack: " + chosen.attack);
     console.log("opponent health: " + opponentChar.health);
@@ -96,8 +112,7 @@ $(document).ready(function() {
         characters.splice(i,1);
       }
     }
-    $("#opponent").html("<h2>Your opponent:</h2>");
-    $("#opponent").append("<img src="+ opponentChar.image + " height='100'>");
+    oppChar();
   });
 
   //reset the game
