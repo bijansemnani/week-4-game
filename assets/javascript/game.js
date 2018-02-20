@@ -59,7 +59,7 @@ $(document).ready(function() {
   resetArray();
   chooseChars("#images");
 
-  //function to print opp and user char options list
+  //helper function to print opp and user char options list
   function chooseChars(string) {
     $(string).html("<h2>Pick your Character:</h2>")
     for (var i = 0; i < characters.length; i++) {
@@ -74,6 +74,17 @@ $(document).ready(function() {
       newDiv.data("data-object", characters[i]);
       $(string).append(newDiv);
     }
+  }
+
+  // helper func generic print function to print the user and opp chars
+  function Chars(tag,char) {
+    $(tag).html("<h2>Your Character: </h2>")
+    $(tag).append("<button class='pictures'><img src="
+    + char.image + " height='100'><div>" +
+    char.health + "</div></img></button>");
+    if(tag === "#images")
+      $("#images").append("<button id='attack' class='attackClass'>Attack</button>");
+    isChosen === false;
   }
 
   //save the chosen character to be used by user then print chosen char
@@ -95,17 +106,6 @@ $(document).ready(function() {
     }
     Chars("#opponent",opponentChar);
   });
-
-  //generic print function to print the user and opp chars
-  function Chars(tag,char) {
-    $(tag).html("<h2>Your Character: </h2>")
-    $(tag).append("<button class='pictures'><img src="
-    + char.image + " height='100'><div>" +
-    char.health + "</div></img></button>");
-    if(tag === "#images")
-      $("#images").append("<button id='attack' class='attackClass'>Attack</button>");
-    isChosen === false;
-  }
 
   //When user attacks the healths and user attacks are modified
   $("#images").on("click","button.attackClass", function () {
