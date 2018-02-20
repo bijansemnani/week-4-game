@@ -4,13 +4,14 @@ $(document).ready(function() {
   var isChosen = false;
   var opponentChar;
   var characters =[];
+  var index = 0;
 
   function resetArray() {
 
     characters =
     [Luke = {
       name: "Luke",
-      health: 400,
+      health: 500,
       attack: 4,
       counter: 50,
       image: "https://lumiere-a.akamaihd.net/v1/images/luke-skywalker-main_5a38c454_461eebf5.jpeg?region=0%2C0%2C1536%2C864&width=768"
@@ -28,7 +29,8 @@ $(document).ready(function() {
        attack: 5,
        counter: 80,
        image:"https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F02%2FEwan-McGregor-as-Obi-Wan-Kenobi.jpg&c=sc&w=850&h=560"
-    }];
+    },
+  ];
 
   }
 
@@ -37,9 +39,16 @@ $(document).ready(function() {
   chooseChars("#images");
 
   function chooseChars(string) {
+    $("#images").html("<h2>Pick your Character:</h2>")
     for (var i = 0; i < characters.length; i++) {
-      if(chosen === characters[i])
-        continue;
+      console.log(i);
+      if(chosen === characters[i]){
+        console.log("here" + i);
+        characters.splice(i,1);
+        console.log(characters);
+        if(i > characters.length - 1)
+          continue;
+      }
       var newDiv = $("<button class='pictures buttonId'><img src="
       + characters[i].image + " height='100'></img></button>");
       newDiv.data("data-object", characters[i]);
@@ -64,7 +73,11 @@ $(document).ready(function() {
       $("#images").html("You Lose");
     }
     if(opponentChar.health <= 0){
-      $("#images").html("You defeated" + opponentChar.name + "choose a new opponent");
+      $("#opponent").html("You defeated " + opponentChar.name + " choose a new opponent");
+      if(characters.length === 0){
+        $("#opponent").html("<h1> YOU WIN!!!</h1>");
+      }
+      chooseChars("#opponent")
     }
   });
 
@@ -74,14 +87,17 @@ $(document).ready(function() {
     isChosen = true;
     $("#images").empty();
     chooseChars("#opponent");
-    console.log(chosen);
   });
 
   $("#opponent").on("click","button.buttonId", function () {
     opponentChar = $(this).data("data-object");
+    for (var i = 0; i < characters.length; i++) {
+      if(opponentChar === characters[i]){
+        characters.splice(i,1);
+      }
+    }
     $("#opponent").html("<h2>Your opponent:</h2>");
     $("#opponent").append("<img src="+ opponentChar.image + " height='100'>");
-    console.log(opponentChar);
   });
 
   //reset the game
