@@ -30,6 +30,27 @@ $(document).ready(function() {
        counter: 80,
        image:"https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F02%2FEwan-McGregor-as-Obi-Wan-Kenobi.jpg&c=sc&w=850&h=560"
     },
+    Luke = {
+      name: "Luke",
+      health: 500,
+      attack: 4,
+      counter: 50,
+      image: "https://lumiere-a.akamaihd.net/v1/images/luke-skywalker-main_5a38c454_461eebf5.jpeg?region=0%2C0%2C1536%2C864&width=768"
+    },
+     Palpatine = {
+       name: "Palpatine",
+       health: 200,
+       attack: 6,
+       counter: 70,
+       image:"https://vignette.wikia.nocookie.net/starwars/images/9/9a/Palp_trustme.jpg/revision/latest/scale-to-width-down/250?cb=20070114040526"
+    },
+     ObiWan = {
+       name: "ObiWan",
+       health: 250,
+       attack: 5,
+       counter: 80,
+       image:"https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F02%2FEwan-McGregor-as-Obi-Wan-Kenobi.jpg&c=sc&w=850&h=560"
+    }
   ];
 
   }
@@ -39,7 +60,7 @@ $(document).ready(function() {
   chooseChars("#images");
 
   function chooseChars(string) {
-    $("#images").html("<h2>Pick your Character:</h2>")
+    $(string).html("<h2>Pick your Character:</h2>")
     for (var i = 0; i < characters.length; i++) {
       console.log(i);
       if(chosen === characters[i]){
@@ -82,14 +103,14 @@ $(document).ready(function() {
     chosen.attack += chosen.attack;
     yourChar();
     oppChar();
-    console.log("chosen health: " + chosen.health);
-    console.log("chosen attack: " + chosen.attack);
-    console.log("opponent health: " + opponentChar.health);
+    $("#stat").html("  chosen health: " + chosen.health);
+    $("#stat").append("<br>  chosen attack: " + chosen.attack);
+    $("#stat").append(" <br> opponent health: " + opponentChar.health);
     if(chosen.health <= 0){
       $("#images").html("You Lose");
     }
-    if(opponentChar.health <= 0){
-      $("#opponent").html("You defeated " + opponentChar.name + " choose a new opponent");
+    else if(opponentChar.health <= 0){
+      $("#stat").append("<br> You defeated " + opponentChar.name + " choose a new opponent");
       if(characters.length === 0){
         $("#opponent").html("<h1> YOU WIN!!!</h1>");
       }
@@ -119,6 +140,7 @@ $(document).ready(function() {
   $("#reset").on("click", function () {
     $("#images").empty();
     $("#opponent").empty();
+    $("#stat").empty();
     resetArray();
     isChosen = false;
     console.clear();
