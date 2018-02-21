@@ -30,13 +30,13 @@ $(document).ready(function() {
        counter: 80,
        image:"https://imagesvc.timeincapp.com/v3/fan/image?url=https%3A%2F%2Fwinteriscoming.net%2Ffiles%2F2018%2F02%2FEwan-McGregor-as-Obi-Wan-Kenobi.jpg&c=sc&w=850&h=560"
     },
-    Luke = {
-      name: "Luke",
-      health: 500,
-      attack: 4,
-      counter: 50,
-      image: "https://lumiere-a.akamaihd.net/v1/images/luke-skywalker-main_5a38c454_461eebf5.jpeg?region=0%2C0%2C1536%2C864&width=768"
-    },
+     Luke = {
+       name: "Luke",
+       health: 500,
+       attack: 4,
+       counter: 50,
+       image: "https://lumiere-a.akamaihd.net/v1/images/luke-skywalker-main_5a38c454_461eebf5.jpeg?region=0%2C0%2C1536%2C864&width=768"
+      },
      Palpatine = {
        name: "Palpatine",
        health: 200,
@@ -100,10 +100,9 @@ $(document).ready(function() {
   //save the opponent character then print opp char
   $("#opponent").on("click","button.buttonId", function () {
     opponentChar = $(this).data("data-object");
-    for (var i = 0; i < characters.length; i++) {
+    for (var i = 0; i < characters.length; i++)
       if(opponentChar === characters[i])
         characters.splice(i,1);
-    }
     Chars("#opponent",opponentChar);
   });
 
@@ -115,7 +114,7 @@ $(document).ready(function() {
     Chars("#images",chosen);
     Chars("#opponent",opponentChar);
     $("#stat").html("  chosen health: " + chosen.health);
-    $("#stat").append("<br>  chosen attack: " + chosen.attack);
+    $("#stat").append(" <br> chosen attack: " + chosen.attack);
     $("#stat").append(" <br> opponent health: " + opponentChar.health);
     if(chosen.health <= 0){
       $("#images").html("You Lose");
