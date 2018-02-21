@@ -5,6 +5,7 @@ $(document).ready(function() {
   var opponentChar;
   var characters =[];
   var index = 0;
+  var userAttack = 0;
 
   function resetArray() {
 
@@ -90,6 +91,7 @@ $(document).ready(function() {
   //save the chosen character to be used by user then print chosen char
   $("#images").on("click","button.buttonId", function () {
     chosen = $(this).data("data-object");
+    userAttack = chosen.attack;
     isChosen = true;
     $("#images").empty();
     chooseChars("#opponent");
@@ -110,7 +112,7 @@ $(document).ready(function() {
   $("#images").on("click","button.attackClass", function () {
     opponentChar.health -= chosen.attack;
     chosen.health -= opponentChar.counter;
-    chosen.attack += chosen.attack;
+    chosen.attack += userAttack;
     Chars("#images",chosen);
     Chars("#opponent",opponentChar);
     $("#stat").html("  chosen health: " + chosen.health);
